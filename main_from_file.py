@@ -12,7 +12,7 @@ class Plotter:
         plt.figure()
 
     def add_polygon(self, xs, ys):
-        plt.fill(xs, ys, "b", label='Polygon')
+        plt.fill(xs, ys, "r", label='Polygon')
 
     def add_point(self, x, y, kind=None):
         if kind == "outside":
@@ -73,31 +73,34 @@ def main():
     print("read polygon.csv")
     with open("polygon.csv", "r") as file:
         next(file)  # skip the first line in csv
-        x_polygon = []
-        y_polygon = []
+        polygon_points = []  # to store point objects
+        x_polygon = []  # to store x coordinates of polygon
+        y_polygon = []  # to store y coordinates of polygon
         for line in file:
             data = line.strip().split(",")
-            x_polygon.append(float(data[1]))
-            y_polygon.append(float(data[2]))
+            polygon_points.append(Point(data[0], data[1], data[2]))  # get data into Point() objects
+            x_polygon.append(float(data[1]))  # the list of x coordinates to plot polygon
+            y_polygon.append(float(data[2]))  # the list of y coordinates to plot polygon
 
         print(x_polygon, y_polygon)
 
+        print("test")
+
         """
-            id, x, y = data[0], data[1], data[2]
-            x_polygon.append(float(line[1]))  # the list of x coordinates to plot polygon
-            y_polygon.append(float(line[2]))  # the list of y coordinates to plot polygon
-            print(line)
+        id, x, y = data[0], data[1], data[2]
+        print(line)
         """
 
     print("read input.csv")
     with open("input.csv", "r") as input_file:
         next(input_file)  # skip the first line in csv
 
-        input_point = []
+        input_points = []  # nothing so far
         x_input = []
         y_input = []
         for line in input_file:
             data = line.strip().split(",")
+            input_points.append(Point(data[0], data[1], data[2]))  # get data in to points(hopefully)
             x_input.append(float(data[1]))
             y_input.append(float(data[2]))
 
@@ -112,14 +115,36 @@ def main():
 
     print(x_max, x_min, y_max, y_min)  # print the MBR ranges (MBR done here
 
-    """
     # Check from this bit below
+    # MRB identifier
 
     cate_dots = {}
-    for i in poly_point:
-        if poly_point.get_y(i) > x_max:
-            poly_point[i] = "outsideeeeeee"
+    for i in input_points:
+        if float(i.get_x()) > x_max:
+            cate_dots[i] = "outside"
+        elif float(i.get_x()) < x_min:
+            cate_dots[i] = "outside"
+        elif float(i.get_y()) > y_max:
+            cate_dots[i] = "outside"
+        elif float(i.get_y()) < y_min:
+            cate_dots[i] = "outside"
+        elif float(i.get_x()) == x_max and float(i.get_y()) <= y_max and float(i.get_y()) >= y_min:
+            cate_dots[i] = "boundary"
+        elif float(i.get_x()) == x_min and float(i.get_y()) <= y_max and float(i.get_y()) >= y_min:
+            cate_dots[i] = "boundary"
+        elif float(i.get_y()) == y_max and float(i.get_x()) <= x_max and float(i.get_x()) >= x_min:
+            cate_dots[i] = "boundary"
+        elif float(i.get_y()) == y_min and float(i.get_x()) <= x_max and float(i.get_x()) >= x_min:
+            cate_dots[i] = "boundary"
+        else:
+            cate_dots[i] = "idk"
 
+    for i in cate_dots:
+        print(i.get_x(), i.get_y())
+
+    print(len(cate_dots))
+
+    """
     # Below are not done yet
 
         def mbr_xpoint_finder():
@@ -137,17 +162,22 @@ def main():
                     kind = "YYYunclassidied"
             return kind
 
-    """
 
+    """
     print("write output.csv")
 
     print("plot polygon and points")
     plotter = Plotter()
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
     plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
-    plotter.add_point(x_input, y_input)  # plot points which need to be categorised
+    for key, value in cate_dots.items():
+        x = key.get_x()
+        y = key.get_y()
+        kind = value
+        plotter.add_point(float(key.get_x()), float(key.get_y()), value)
+
     plt.savefig('test.png')  # save fig as png file
-    plt.show()
+    plotter.show()
 
 
 if __name__ == "__main__":
