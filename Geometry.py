@@ -25,3 +25,6 @@ class Polygon():
 
     def __init__(self, points):
         self.__points = points
+
+
+print("test")
