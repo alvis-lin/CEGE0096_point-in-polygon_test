@@ -15,7 +15,7 @@ class Plotter:
         plt.fill(xs, ys, 'lightblue', label='Polygon')
 
     def add_line(self, x, y):
-        plt.plot(x, y, 'green')
+        plt.plot(x, y, 'orange')
 
     def add_point(self, x, y, kind=None):
         if kind == "outside":
