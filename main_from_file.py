@@ -1,34 +1,10 @@
 from collections import OrderedDict
-
+from plotter import Plotter
 import matplotlib
 import matplotlib.pyplot as plt
 
 matplotlib.use('TkAgg')
 
-
-class Plotter:
-
-    def __init__(self):
-        plt.figure()
-
-    def add_polygon(self, xs, ys):
-        plt.fill(xs, ys, "r", label='Polygon')
-
-    def add_point(self, x, y, kind=None):
-        if kind == "outside":
-            plt.plot(x, y, "ro", label='Outside')
-        elif kind == "boundary":
-            plt.plot(x, y, "yo", label='Boundary')
-        elif kind == "inside":
-            plt.plot(x, y, "go", label='Inside')
-        else:
-            plt.plot(x, y, "ko", label='Unclassified')
-
-    def show(self):
-        handles, labels = plt.gca().get_legend_handles_labels()
-        by_label = OrderedDict(zip(labels, handles))
-        plt.legend(by_label.values(), by_label.keys())
-        plt.show()
 
 
 class Point():
@@ -43,6 +19,14 @@ class Point():
 
     def get_y(self):
         return self.__y
+
+class Line(Point):
+
+    def __init__(self, name, point_1, point_2):
+        super().__init__(name)
+        self.__point_1 = point_1
+        self.__point_2 = point_2
+
 
 
 class Polygon():
@@ -63,9 +47,6 @@ class Categoriser():
     def categorise_point(self):
         if outside_mbr(point):
             return "outside"
-
-
-from plotter import Plotter
 
 
 def main():
@@ -120,13 +101,9 @@ def main():
 
     cate_dots = {}
     for i in input_points:
-        if float(i.get_x()) > x_max:
+        if float(i.get_x()) > x_max or float(i.get_x()) < x_min:
             cate_dots[i] = "outside"
-        elif float(i.get_x()) < x_min:
-            cate_dots[i] = "outside"
-        elif float(i.get_y()) > y_max:
-            cate_dots[i] = "outside"
-        elif float(i.get_y()) < y_min:
+        elif float(i.get_y()) > y_max or float(i.get_y()) < y_min:
             cate_dots[i] = "outside"
         elif float(i.get_x()) == x_max and float(i.get_y()) <= y_max and float(i.get_y()) >= y_min:
             cate_dots[i] = "boundary"
@@ -142,7 +119,7 @@ def main():
     for i in cate_dots:
         print(i.get_x(), i.get_y())
 
-    print(len(cate_dots))
+    print(cate_dots)
 
     """
     # Below are not done yet
