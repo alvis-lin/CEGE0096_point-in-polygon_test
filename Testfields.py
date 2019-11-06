@@ -1,14 +1,36 @@
+from collections import OrderedDict
+
 import matplotlib
 import matplotlib.pyplot as plt
-from Geometry import Point, Line, Polygon
-from plotter import Plotter
 
 matplotlib.use('TkAgg')
+
+
+
+class Point():
+
+    def __init__(self, id, x, y):
+        self.__id = id
+        self.__x = x
+        self.__y = y
+
+    def get_x(self):
+        return self.__x
+
+    def get_y(self):
+        return self.__y
+
+
+class Polygon():
+
+    def __init__(self, points):
+        self.__points = points
 
 
 class Categoriser():
 
     def __init__(self, polygon):
+
         self.polygon = polygon
 
     """    def outside_mbr(self):
@@ -19,6 +41,11 @@ class Categoriser():
         if outside_mbr(point):
             return "outside"
 
+
+
+
+
+from plotter import Plotter
 
 def main():
     plotter = Plotter()
@@ -34,21 +61,14 @@ def main():
             x_polygon.append(float(data[1]))  # the list of x coordinates to plot polygon
             y_polygon.append(float(data[2]))  # the list of y coordinates to plot polygon
 
-        polygon_lines = []
-        prev = polygon_points[0]
-        for i in polygon_points[1:]:
-            polygon_lines.append(Line(prev,i))
-            prev = i
+        print(x_polygon, y_polygon)
 
-    for i in polygon_lines:
-        a, b = i.get_points()
-        print(a.get_x(),a.get_y(), b.get_x(), b.get_y())
+        print("test")
 
-
-
-    print("TESTTTTTT")
-
-
+        """
+        id, x, y = data[0], data[1], data[2]
+        print(line)
+        """
 
     print("read input.csv")
     with open("input.csv", "r") as input_file:
@@ -63,6 +83,9 @@ def main():
             x_input.append(float(data[1]))
             y_input.append(float(data[2]))
 
+        print(x_input, y_input)
+
+
     print("categorize points")  # MBR boundaries
 
     x_max = max(x_polygon)
@@ -72,14 +95,19 @@ def main():
 
     print(x_max, x_min, y_max, y_min)  # print the MBR ranges (MBR done here
 
+
     # Check from this bit below
     # MRB identifier
-
+    
     cate_dots = {}
     for i in input_points:
-        if float(i.get_x()) > x_max or float(i.get_x()) < x_min:
+        if float(i.get_x()) > x_max:
             cate_dots[i] = "outside"
-        elif float(i.get_y()) > y_max or float(i.get_y()) < y_min:
+        elif float(i.get_x()) < x_min:
+            cate_dots[i] = "outside"
+        elif float(i.get_y()) > y_max:
+            cate_dots[i] = "outside"
+        elif float(i.get_y()) < y_min:
             cate_dots[i] = "outside"
         elif float(i.get_x()) == x_max and float(i.get_y()) <= y_max and float(i.get_y()) >= y_min:
             cate_dots[i] = "boundary"
@@ -90,27 +118,47 @@ def main():
         elif float(i.get_y()) == y_min and float(i.get_x()) <= x_max and float(i.get_x()) >= x_min:
             cate_dots[i] = "boundary"
         else:
-            cate_dots[i] = "boundary"
+            cate_dots[i] = "idk"
 
 
+    """
+    # Below are not done yet
 
+        def mbr_xpoint_finder():
+            kind = ""
+
+
+        def mbr_ypoint_finder():
+            kind = ""
+            for i in y_input:
+                if i < y_min:
+                    kind = "outside"
+                elif i > y_max:
+                    kind = "outside"
+                else:
+                    kind = "YYYunclassidied"
+            return kind
+
+    
+    """
     print("write output.csv")
 
     print("plot polygon and points")
     plotter = Plotter()
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
-    plotter.add_line(x_polygon, y_polygon)
-    #plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
-
-
+    plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
     for key, value in cate_dots.items():
         x = key.get_x()
         y = key.get_y()
         kind = value
-        plotter.add_point(float(key.get_x()), float(key.get_y()), value)
+        plotter.add_point(float(key.get_x()),float(key.get_y()), value)
 
-
+    plt.savefig('test.png') # save fig as png file
     plotter.show()
+    
+
+    
+
 
 
 if __name__ == "__main__":
