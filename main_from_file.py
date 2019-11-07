@@ -46,6 +46,7 @@ def main():
 
 
 
+
     print("TESTTTTTT")
 
 
@@ -81,16 +82,11 @@ def main():
             cate_dots[i] = "outside"
         elif float(i.get_y()) > y_max or float(i.get_y()) < y_min:
             cate_dots[i] = "outside"
-        elif float(i.get_x()) == x_max and float(i.get_y()) <= y_max and float(i.get_y()) >= y_min:
-            cate_dots[i] = "boundary"
-        elif float(i.get_x()) == x_min and float(i.get_y()) <= y_max and float(i.get_y()) >= y_min:
-            cate_dots[i] = "boundary"
-        elif float(i.get_y()) == y_max and float(i.get_x()) <= x_max and float(i.get_x()) >= x_min:
-            cate_dots[i] = "boundary"
-        elif float(i.get_y()) == y_min and float(i.get_x()) <= x_max and float(i.get_x()) >= x_min:
-            cate_dots[i] = "boundary"
         else:
-            cate_dots[i] = "boundary"
+            cate_dots[i] = "idk"
+
+
+
 
 
 
