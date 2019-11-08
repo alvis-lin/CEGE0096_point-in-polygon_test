@@ -6,26 +6,6 @@ from plotter import Plotter
 matplotlib.use('TkAgg')
 
 
-class Point():
-
-    def __init__(self, id, x, y):
-        self.__id = id
-        self.__x = x
-        self.__y = y
-
-    def get_x(self):
-        return self.__x
-
-    def get_y(self):
-        return self.__y
-
-
-class Polygon():
-
-    def __init__(self, points):
-        self.__points = points
-
-
 class Categoriser():
 
     def __init__(self, polygon):
@@ -40,7 +20,7 @@ class Categoriser():
             return "outside"
 
 
-from plotter import Plotter
+
 
 
 def main():
@@ -69,10 +49,7 @@ def main():
 
     print(len(polygon_lines))
 
-    """
-        id, x, y = data[0], data[1], data[2]
-        print(line)
-    """
+
 
     print("read input.csv")
     with open("input.csv", "r") as input_file:
@@ -142,7 +119,7 @@ def main():
     print(len(idk_dots), "idkdots")
     print(len(idk_dots_2), "idk_2 points")
 
-    idk_dots_2 = {k: v for k, v in idk_dots.items() if k not in bou_dots}
+    idk_dots_2 = {k: v for k, v in idk_dots.items() if k not in bou_dots} # get unclassified points after boundary test
     print(idk_dots_2)
 
     print(len(out_dots), "outdots")
@@ -155,19 +132,19 @@ def main():
     print("plot polygon and points")
     plotter = Plotter()
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
-    plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
+    #plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
 
     for key, value in out_dots.items():
         x = float(key.get_x())
         y = float(key.get_y())
         kind = value
         plotter.add_point(x, y, kind)
-
+    """
     for poly in polygon_lines:
         la, lb = poly.get_points()
         lax, lay, lbx, lby = float(la.get_x()), float(la.get_y()), float(lb.get_x()), float(lb.get_y())
         plotter.add_line(x_polygon, y_polygon)
-
+    """
     for key, value in bou_dots.items():
         x = float(key.get_x())
         y = float(key.get_y())
@@ -180,8 +157,9 @@ def main():
         kind = value
         plotter.add_point(x, y, kind)
 
+
     plotter.show()
-    
+
 
 if __name__ == "__main__":
     main()

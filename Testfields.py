@@ -7,25 +7,6 @@ matplotlib.use('TkAgg')
 
 
 
-class Point():
-
-    def __init__(self, id, x, y):
-        self.__id = id
-        self.__x = x
-        self.__y = y
-
-    def get_x(self):
-        return self.__x
-
-    def get_y(self):
-        return self.__y
-
-
-class Polygon():
-
-    def __init__(self, points):
-        self.__points = points
-
 
 class Categoriser():
 
@@ -138,9 +119,6 @@ def main():
                 else:
                     res = "not online"
 
-
-
-
             print(res)
 
             if res == "online":
@@ -170,7 +148,7 @@ def main():
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
     plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
 
-
+    """
     for key, value in out_dots.items():
         x = float(key.get_x())
         y = float(key.get_y())
@@ -187,12 +165,18 @@ def main():
         y = float(key.get_y())
         kind = value
         plotter.add_point(x,y, kind)
-
+    """
     for key, value in idk_dots_2.items():
         x = float(key.get_x())
         y = float(key.get_y())
         kind = value
         plotter.add_point(x, y, kind)
+
+    for key, value in idk_dots_2.items():
+        y = float(key.get_y())
+        xmin = float(key.get_x())
+        xmax = 1
+        plotter.add_ray(y, xmin, xmax)
 
 
 
