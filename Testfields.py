@@ -16,19 +16,8 @@ def main():
 
 
     print("read input.csv")
-    with open("input.csv", "r") as input_file:
-        next(input_file)  # skip the first line in csv
 
-        input_points = []  # nothing so far
-        x_input = []
-        y_input = []
-        for line in input_file:
-            data = line.strip().split(",")
-            input_points.append(Point(data[0], data[1], data[2]))  # get data in to points(hopefully)
-            x_input.append(float(data[1]))
-            y_input.append(float(data[2]))
-
-        print(x_input, y_input)
+    input_points = io.input_pointfile("input.csv")
 
 
     print("categorize points")  # MBR boundaries
@@ -106,12 +95,12 @@ def main():
             kind = value
             f.writelines(str(x) + "," + str(y) + "," + str(kind)+"\n")
 
-    """
+
 
     print("plot polygon and points")
     plotter = Plotter()
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
-    """
+
     print("change to objectssssss")
     plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
 
@@ -138,15 +127,16 @@ def main():
         y = float(key.get_y())
         kind = value
         plotter.add_point(x, y, kind)
-    
+    """
     for key, value in idk_dots_2.items():
         y = float(key.get_y())
         xmin = float(key.get_x())
         xmax = 1
         plotter.add_ray(y, xmin, xmax)
+    """
     
 
-    """
+
 
     plotter.show()
 

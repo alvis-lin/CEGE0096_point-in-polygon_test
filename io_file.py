@@ -30,3 +30,20 @@ class IO_file:
 
         return polygon_points, x_polygon, y_polygon, polygon_lines
 
+
+    def input_pointfile(self, filename):
+
+        with open(filename, "r") as input_file:
+            next(input_file)
+
+            input_points = []
+            for line in input_file:
+                data = line.strip().split(",")
+                input_points.append(Point(data[0], data[1], data[2]))
+
+        return input_points
+
+
+
+
+
