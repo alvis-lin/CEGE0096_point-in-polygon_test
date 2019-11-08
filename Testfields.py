@@ -131,7 +131,7 @@ def main():
             lax, lay, lbx, lby = float(la.get_x()), float(la.get_y()), float(lb.get_x()), float(lb.get_y())
             res = ""
             if max(lax, lbx) >= a >= min(lax, lbx) and max(lay, lby) >= b >= min(lay, lby):
-                if lbx == lax:
+                if lbx == lax: # means points on vertical line
                     res = "online"
                 elif b == (a - lax)/(lbx - lax)*(lby - lay)+lay:
                     res = "online"
@@ -139,97 +139,60 @@ def main():
                     res = "not online"
 
 
+
+
             print(res)
 
             if res == "online":
                 bou_dots[i] = "boundary"
-            elif res == "not online":
-                idk_dots_2[i] = "idk"
-
-
-    """
-    bou_dots[i] = "boundary"
-                elif b == (a - lax)/(lbx - lax)*(lby - lay) + lay:
-                    bou_dots[i] = "boundary"
-                else:
-                    idk_dots_2[i] = "idk"
-            else:
-                idk_dots_2[i] = "idk"
-    
-    """
 
     print(len(out_dots), "outdots")
     print(len(bou_dots), "boundots")
     print(len(idk_dots), "idkdots")
-    print(len(idk_dots_2), "idk points after boundary check")
+    print(len(idk_dots_2), "idk_2 points")
+
+    idk_dots_2 = {k:v for k,v in idk_dots.items() if k not in bou_dots}
+    print(idk_dots_2)
 
 
-
-                #if float(b) == (float(a) - float(la.get_x())) / (float(lb.get_x()) - float(la.get_x())) * (float(lb.get_y()) - float(la.get_y())) + float(la.get_y()):
-                    #bou_dots[i] = "boundary"
-
-
-
-                #  a.get_x(), a.get_y(), b.get_x(), b.get_y()
-            #and max(float(la.get_y()),float(lb.get_y())) >= float(b) >= min(float(la.get_y()),float(lb.get_y()))
-
-    """
     print(len(out_dots), "outdots")
     print(len(bou_dots), "boundots")
     print(len(idk_dots), "idkdots")
-
-    
-    for i in polygon_points:
-        if 
-        for i in polygon_lines:
-            a, b = i.get_points()
-            print(a.get_x(), a.get_y(), b.get_x(), b.get_y())
-
-    
-    # Below are not done yet
-
-        def mbr_xpoint_finder():
-            kind = ""
+    print(len(idk_dots_2), "idk_2 points")
 
 
-        def mbr_ypoint_finder():
-            kind = ""
-            for i in y_input:
-                if i < y_min:
-                    kind = "outside"
-                elif i > y_max:
-                    kind = "outside"
-                else:
-                    kind = "YYYunclassidied"
-            return kind
 
-    
-    """
+
     print("write output.csv")
 
     print("plot polygon and points")
     plotter = Plotter()
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
     plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
-    for key, value in out_dots.items():
-        x = key.get_x()
-        y = key.get_y()
-        kind = value
-        plotter.add_point(float(key.get_x()),float(key.get_y()), value)
 
+
+    for key, value in out_dots.items():
+        x = float(key.get_x())
+        y = float(key.get_y())
+        kind = value
+        plotter.add_point(x,y,kind)
+
+    for poly in polygon_lines:
+        la, lb = poly.get_points()
+        lax, lay, lbx, lby = float(la.get_x()), float(la.get_y()), float(lb.get_x()), float(lb.get_y())
+        plotter.add_line(x_polygon, y_polygon)
 
     for key, value in bou_dots.items():
-        x = key.get_x()
-        y = key.get_y()
+        x = float(key.get_x())
+        y = float(key.get_y())
         kind = value
-        plotter.add_point(float(key.get_x()),float(key.get_y()), value)
+        plotter.add_point(x,y, kind)
 
     for key, value in idk_dots_2.items():
-        x = key.get_x()
-        y = key.get_y()
+        x = float(key.get_x())
+        y = float(key.get_y())
         kind = value
-        plotter.add_point(float(key.get_x()),float(key.get_y()), value)
-
+        plotter.add_point(x, y, kind)
 
 
 
