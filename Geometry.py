@@ -1,4 +1,4 @@
-class Point():
+class Point:
 
     def __init__(self, id, x, y):
         self.__id = id
@@ -11,7 +11,7 @@ class Point():
     def get_y(self):
         return self.__y
 
-class Line():
+class Line:
 
     def __init__(self, point_1, point_2):
         self.__point_1 = point_1
@@ -21,7 +21,7 @@ class Line():
         return self.__point_1, self.__point_2
 
 
-class Polygon():
+class Polygon:
 
     def __init__(self, points):
         self.__points = points

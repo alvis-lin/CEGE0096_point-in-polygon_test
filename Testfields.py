@@ -6,8 +6,6 @@ from plotter import Plotter
 matplotlib.use('TkAgg')
 
 
-
-
 class Categoriser():
 
     def __init__(self, polygon):
@@ -23,11 +21,6 @@ class Categoriser():
             return "outside"
 
 
-
-
-
-from plotter import Plotter
-
 def main():
 
     print("read polygon.csv")
@@ -42,6 +35,8 @@ def main():
             x_polygon.append(float(data[1]))  # the list of x coordinates to plot polygon
             y_polygon.append(float(data[2]))  # the list of y coordinates to plot polygon
 
+
+
         polygon_lines = []
         prev = polygon_points[0]
         for i in polygon_points[1:]:
@@ -53,11 +48,6 @@ def main():
         print(a.get_x(), a.get_y(), b.get_x(), b.get_y())
 
     print(len(polygon_lines))
-
-    """
-        id, x, y = data[0], data[1], data[2]
-        print(line)
-    """
 
     print("read input.csv")
     with open("input.csv", "r") as input_file:
@@ -138,29 +128,27 @@ def main():
     print(len(idk_dots), "idkdots")
     print(len(idk_dots_2), "idk_2 points")
 
-    classified_points = {**out_dots, **bou_dots}
+    classified_points = {**out_dots, **bou_dots, **idk_dots_2}
     print(classified_points)
 
     print("write output.csv")
-    """
-    # just execute this to write the file
     with open("output.csv", "w") as f:
-
+        f.writelines("x, y, classification" + "\n")
         for key, value in classified_points.items():
             x = key.get_x()
             y = key.get_y()
             kind = value
-            line = (x, y, kind)
-            f.write(str(line)+"\n")
-    """
+            f.writelines(str(x) + "," + str(y) + "," + str(kind)+"\n")
+
 
 
     print("plot polygon and points")
     plotter = Plotter()
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
+    print("change to objectssssss")
     plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
 
-    """
+
     for key, value in out_dots.items():
         x = float(key.get_x())
         y = float(key.get_y())
@@ -177,7 +165,7 @@ def main():
         y = float(key.get_y())
         kind = value
         plotter.add_point(x,y, kind)
-    """
+
     for key, value in idk_dots_2.items():
         x = float(key.get_x())
         y = float(key.get_y())
