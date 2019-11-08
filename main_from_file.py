@@ -65,7 +65,7 @@ def main():
     x_max = max(x_polygon)
     x_min = min(x_polygon)
     y_max = max(y_polygon)
-    y_min = min(x_polygon)
+    y_min = min(y_polygon)
 
     print(x_max, x_min, y_max, y_min)  # print the MBR ranges (MBR done here
 

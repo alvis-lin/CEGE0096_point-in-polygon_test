@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from Geometry import Point, Line, Polygon
 from plotter import Plotter
 from io_file import IO_file
+from categoriser import Categoriser
 
 matplotlib.use('TkAgg')
 
@@ -10,45 +11,20 @@ matplotlib.use('TkAgg')
 def main():
 
     print("read polygon.csv")
-
     io = IO_file()
     polygon_points, x_polygon, y_polygon, polygon_lines = io.input_polyfile("polygon.csv")
 
-
     print("read input.csv")
-
     input_points = io.input_pointfile("input.csv")
 
-
     print("categorize points")  # MBR boundaries
+    cate = Categoriser()
+    out_dots, idk_dots = cate.mbr(input_points, x_polygon, y_polygon)
+    bou_dots = cate.boundary_check(idk_dots,polygon_lines)
+    print(len(bou_dots))
 
-    x_max = max(x_polygon)
-    x_min = min(x_polygon)
-    y_max = max(y_polygon)
-    y_min = min(x_polygon)
-
-    print(x_max, x_min, y_max, y_min)  # print the MBR ranges (MBR done here
-
-
-    # Check from this bit below
-    # MRB identifier
-
-    out_dots = {} # Outside points that are categorised
-    bou_dots = {}
-    idk_dots = {} # Points left need to be categorised
-    idk_dots_2 = {} #unclassified points after boundary check
-    for i in input_points:
-        if float(i.get_x()) > x_max or float(i.get_x()) < x_min:
-            out_dots[i] = "outside"
-        elif float(i.get_y()) > y_max or float(i.get_y()) < y_min:
-            out_dots[i] = "outside"
-        else:
-            idk_dots[i] = "idk"
-
-    print(len(out_dots), "outdots")
-    print(len(bou_dots), "boundots")
-    print(len(idk_dots), "idkdots")
-
+    # boundary check from below
+    """
     for i in idk_dots:
         a, b = float(i.get_x()), float(i.get_y())
         print(a - b)
@@ -94,15 +70,14 @@ def main():
             y = key.get_y()
             kind = value
             f.writelines(str(x) + "," + str(y) + "," + str(kind)+"\n")
-
-
+    """
 
     print("plot polygon and points")
     plotter = Plotter()
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
 
     print("change to objectssssss")
-    plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
+    #plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
 
 
     for key, value in out_dots.items():
@@ -122,23 +97,26 @@ def main():
         kind = value
         plotter.add_point(x,y, kind)
 
+    """
+
     for key, value in idk_dots_2.items():
         x = float(key.get_x())
         y = float(key.get_y())
         kind = value
         plotter.add_point(x, y, kind)
-    """
+    
     for key, value in idk_dots_2.items():
         y = float(key.get_y())
         xmin = float(key.get_x())
         xmax = 1
         plotter.add_ray(y, xmin, xmax)
-    """
     
-
+    
+    """
 
 
     plotter.show()
+
 
 
 
