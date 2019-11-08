@@ -17,6 +17,22 @@ class Plotter:
     def add_line(self, x, y):
         plt.plot(x, y, 'orange')
 
+    def add_point(self,res):
+        for key, value in res:
+            x = float(key.get_x())
+            y = float(key.get_y())
+            kind = value
+            if kind == "outside":
+                plt.plot(x, y, "ro", label='Outside')
+            elif kind == "boundary":
+                plt.plot(x, y, "bo", label='Boundary')
+            elif kind == "inside":
+                plt.plot(x, y, "go", label='Inside')
+            else:
+                plt.plot(x, y, "ko", label='Unclassified')
+
+    """
+
     def add_point(self, x, y, kind=None):
         if kind == "outside":
             plt.plot(x, y, "ro", label='Outside')
@@ -26,11 +42,12 @@ class Plotter:
             plt.plot(x, y, "go", label='Inside')
         else:
             plt.plot(x, y, "ko", label='Unclassified')
+    """
 
     def show(self):
         handles, labels = plt.gca().get_legend_handles_labels()
         by_label = OrderedDict(zip(labels, handles))
-        plt.legend(by_label.values(), by_label.keys(), loc = (1, 0)) # loc needs to be adjusted
+        plt.legend(by_label.values(), by_label.keys()) # loc needs to be adjusted
         plt.show()
 
 

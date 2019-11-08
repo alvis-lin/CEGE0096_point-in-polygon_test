@@ -28,10 +28,9 @@ class Categoriser():
 
         for i in idk:
             a, b = float(i.get_x()), float(i.get_y())
-            print(a - b)
             for poly in polyline:
                 la, lb = poly.get_points()
-                lax, lay, lbx, lby = float(la.get_x()), float(la.get_y()), float(lb.get_x()), float(lb.get_y())
+                lax, lay, lbx, lby = la.get_x(), la.get_y(), lb.get_x(), lb.get_y()
                 res = ""
                 if max(lax, lbx) >= a >= min(lax, lbx) and max(lay, lby) >= b >= min(lay, lby):
                     if lbx == lax:  # means points on vertical line

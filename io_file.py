@@ -3,8 +3,6 @@ from Geometry import Point, Line, Polygon
 
 class IO_file:
 
-
-
     def input_polyfile(self, filename):
 
         with open(filename, "r") as file:
@@ -14,7 +12,7 @@ class IO_file:
             y_polygon = []  # to store y coordinates of polygon
             for line in file:
                 data = line.strip().split(",")
-                polygon_points.append(Point(data[0], data[1], data[2]))  # get data into Point() objects
+                polygon_points.append(Point(float(data[0]), float(data[1]), float(data[2])))  # get data into Point() objects
                 x_polygon.append(float(data[1]))  # the list of x coordinates to plot polygon
                 y_polygon.append(float(data[2]))  # the list of y coordinates to plot polygon
 
@@ -42,6 +40,18 @@ class IO_file:
                 input_points.append(Point(data[0], data[1], data[2]))
 
         return input_points
+
+    def output_pointfile(self, filename, res):
+
+        with open(filename, "w") as f:
+            f.writelines("x, y, classification" + "\n")
+            for key, value in res:
+                x = key.get_x()
+                y = key.get_y()
+                kind = value
+                f.writelines(str(x) + "," + str(y) + "," + str(kind) + "\n")
+
+
 
 
 
