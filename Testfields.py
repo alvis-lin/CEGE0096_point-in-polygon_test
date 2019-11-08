@@ -29,7 +29,7 @@ class Categoriser():
 from plotter import Plotter
 
 def main():
-    plotter = Plotter()
+
     print("read polygon.csv")
     with open("polygon.csv", "r") as file:
         next(file)  # skip the first line in csv
@@ -138,10 +138,22 @@ def main():
     print(len(idk_dots), "idkdots")
     print(len(idk_dots_2), "idk_2 points")
 
-
-
+    classified_points = {**out_dots, **bou_dots}
+    print(classified_points)
 
     print("write output.csv")
+    """
+    # just execute this to write the file
+    with open("output.csv", "w") as f:
+
+        for key, value in classified_points.items():
+            x = key.get_x()
+            y = key.get_y()
+            kind = value
+            line = (x, y, kind)
+            f.write(str(line)+"\n")
+    """
+
 
     print("plot polygon and points")
     plotter = Plotter()
@@ -171,17 +183,15 @@ def main():
         y = float(key.get_y())
         kind = value
         plotter.add_point(x, y, kind)
-
+    """
     for key, value in idk_dots_2.items():
         y = float(key.get_y())
         xmin = float(key.get_x())
         xmax = 1
         plotter.add_ray(y, xmin, xmax)
-
-
+    """
 
     plotter.show()
-    
 
 
 if __name__ == "__main__":

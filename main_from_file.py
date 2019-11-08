@@ -21,10 +21,8 @@ class Categoriser():
 
 
 
-
-
 def main():
-    plotter = Plotter()
+    
     print("read polygon.csv")
     with open("polygon.csv", "r") as file:
         next(file)  # skip the first line in csv
@@ -128,6 +126,8 @@ def main():
     print(len(idk_dots_2), "idk_2 points")
 
     print("write output.csv")
+
+
 
     print("plot polygon and points")
     plotter = Plotter()
