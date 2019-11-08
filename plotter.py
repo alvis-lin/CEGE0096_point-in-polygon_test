@@ -17,7 +17,7 @@ class Plotter:
     def add_line(self, x, y):
         plt.plot(x, y, 'orange')
 
-    def add_point(self,res):
+    def add_all_point(self,res):
         for key, value in res:
             x = float(key.get_x())
             y = float(key.get_y())
@@ -31,7 +31,7 @@ class Plotter:
             else:
                 plt.plot(x, y, "ko", label='Unclassified')
 
-    """
+
 
     def add_point(self, x, y, kind=None):
         if kind == "outside":
@@ -42,7 +42,7 @@ class Plotter:
             plt.plot(x, y, "go", label='Inside')
         else:
             plt.plot(x, y, "ko", label='Unclassified')
-    """
+
 
     def show(self):
         handles, labels = plt.gca().get_legend_handles_labels()
