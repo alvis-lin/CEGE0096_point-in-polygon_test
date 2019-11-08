@@ -181,7 +181,7 @@ def main():
         plotter.add_point(x, y, kind)
 
     plotter.show()
-
+    
 
 if __name__ == "__main__":
     main()
