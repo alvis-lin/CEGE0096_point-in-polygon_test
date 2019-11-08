@@ -2,52 +2,18 @@ import matplotlib
 import matplotlib.pyplot as plt
 from Geometry import Point, Line, Polygon
 from plotter import Plotter
+from io_file import IO_file
 
 matplotlib.use('TkAgg')
-
-
-class Categoriser():
-
-    def __init__(self, polygon):
-
-        self.polygon = polygon
-
-    """    def outside_mbr(self):
-        for point in point:
-    """
-
-    def categorise_point(self):
-        if outside_mbr(point):
-            return "outside"
 
 
 def main():
 
     print("read polygon.csv")
-    with open("polygon.csv", "r") as file:
-        next(file)  # skip the first line in csv
-        polygon_points = []  # to store point objects
-        x_polygon = []  # to store x coordinates of polygon
-        y_polygon = []  # to store y coordinates of polygon
-        for line in file:
-            data = line.strip().split(",")
-            polygon_points.append(Point(data[0], data[1], data[2]))  # get data into Point() objects
-            x_polygon.append(float(data[1]))  # the list of x coordinates to plot polygon
-            y_polygon.append(float(data[2]))  # the list of y coordinates to plot polygon
 
+    io = IO_file()
+    polygon_points, x_polygon, y_polygon, polygon_lines = io.input_polyfile("polygon.csv")
 
-
-        polygon_lines = []
-        prev = polygon_points[0]
-        for i in polygon_points[1:]:
-            polygon_lines.append(Line(prev, i))
-            prev = i
-
-    for i in polygon_lines:
-        a, b = i.get_points()
-        print(a.get_x(), a.get_y(), b.get_x(), b.get_y())
-
-    print(len(polygon_lines))
 
     print("read input.csv")
     with open("input.csv", "r") as input_file:
@@ -140,11 +106,12 @@ def main():
             kind = value
             f.writelines(str(x) + "," + str(y) + "," + str(kind)+"\n")
 
-
+    """
 
     print("plot polygon and points")
     plotter = Plotter()
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
+    """
     print("change to objectssssss")
     plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
 
@@ -171,15 +138,18 @@ def main():
         y = float(key.get_y())
         kind = value
         plotter.add_point(x, y, kind)
-    """
+    
     for key, value in idk_dots_2.items():
         y = float(key.get_y())
         xmin = float(key.get_x())
         xmax = 1
         plotter.add_ray(y, xmin, xmax)
+    
+
     """
 
     plotter.show()
+
 
 
 if __name__ == "__main__":

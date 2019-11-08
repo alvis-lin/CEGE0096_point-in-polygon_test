@@ -11,6 +11,9 @@ class Point:
     def get_y(self):
         return self.__y
 
+    def get_id(self):
+        return self.__id
+
 class Line:
 
     def __init__(self, point_1, point_2):

@@ -144,11 +144,12 @@ def main():
         y = float(key.get_y())
         kind = value
         plotter.add_point(x, y, kind)
-
+    """
     for poly in polygon_lines:
         la, lb = poly.get_points()
         lax, lay, lbx, lby = float(la.get_x()), float(la.get_y()), float(lb.get_x()), float(lb.get_y())
         plotter.add_line(x_polygon, y_polygon)
+    """
 
     for key, value in bou_dots.items():
         x = float(key.get_x())
@@ -161,6 +162,12 @@ def main():
         y = float(key.get_y())
         kind = value
         plotter.add_point(x, y, kind)
+
+    for key, value in out_dots.items():
+        x = float(key.get_x())
+        y = float(key.get_y())
+        plotter.add_polygon(x, y)
+
     """
     for key, value in idk_dots_2.items():
         y = float(key.get_y())
