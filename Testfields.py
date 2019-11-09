@@ -2,7 +2,7 @@ import matplotlib
 from plotter import Plotter
 from io_file import IO_file
 from categoriser import Categoriser
-import sys
+
 matplotlib.use('TkAgg')
 
 
@@ -12,7 +12,7 @@ def main():
     polygon_points, x_polygon, y_polygon, polygon_lines = io.input_polyfile("polygon.csv")
 
     print("read input.csv")
-    input_points = io.input_pointfile("input_test.csv")
+    input_points = io.input_pointfile("input.csv")
 
     print("categorize points")
     cate = Categoriser()
@@ -30,9 +30,6 @@ def main():
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
     plotter.add_all_point(classified_points.items()) # plot results
     plotter.show()
-
-    print(sys.argv) # run this programme in terminal
-
 
 if __name__ == "__main__":
     main()

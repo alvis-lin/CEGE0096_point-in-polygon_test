@@ -19,7 +19,6 @@ def main():
     out_dots, idk_dots = cate.mbr_check(input_points, x_polygon, y_polygon) #MBR
     bou_dots = cate.boundary_check(idk_dots, polygon_lines) # POL
     idk_dots_2 = {k: v for k, v in idk_dots.items() if k not in bou_dots} # get rest points to classify after POL
-    print(idk_dots_2)
     in_dots, out_dots = cate.rca_check(idk_dots_2, polygon_points, out_dots) #RCA
     classified_points = {**out_dots, **bou_dots, **in_dots}
 
