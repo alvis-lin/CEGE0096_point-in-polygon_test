@@ -18,7 +18,7 @@ def main():
 
     print("categorize points")  # MBR boundaries
     cate = Categoriser()
-    out_dots, idk_dots = cate.mbr(input_points, x_polygon, y_polygon)
+    out_dots, idk_dots = cate.mbr_check(input_points, x_polygon, y_polygon)
     bou_dots = cate.boundary_check(idk_dots,polygon_lines)
 
     idk_dots_2 = {k:v for k,v in idk_dots.items() if k not in bou_dots}
@@ -30,7 +30,10 @@ def main():
     print(len(idk_dots), "idkdots")  # DELETE
     print(len(idk_dots_2), "idk_2 points")  # DELETE
 
+    in_dots, out_dots = cate.rca_check(idk_dots_2, polygon_points, out_dots)
 
+
+    """
     in_dots = {}
 
     point1 = polygon_points[0]
@@ -46,16 +49,9 @@ def main():
             # 求线段与射线交点 再和lat比较
                 point12lng = point2.get_x() - (point2.get_y() - y) * (point2.get_x() - point1.get_x()) / (point2.get_y() - point1.get_y())
                 print(point12lng)
-                """
-                if point12lng == x:
-                    print("点在多边形边上")
-                    return False
-                """
                 if point12lng < x:
                     count += 1
             point1 = point2
-        #print(count)
-        #print("after count")
         if count % 2 == 0:
             out_dots[i] = "outside"
         else:
@@ -64,29 +60,9 @@ def main():
 
 
     """
-        for key, value in idk_dots_2.items():
-        x, y = key.get_x(), key.get_y()
-        rca = ""
-        for i in range(1, len(polygon_points)):
-            point2 = polygon_points[i]
-            if (point1.get_y() < y and point2.get_y() >= y) or (point1.get_y() >= y and point2.get_y() < y):
-            # 求线段与射线交点 再和lat比较
-                point12lng = point2.get_x() - (point2.get_y() - y) * (point2.get_x() - point1.get_x()) / (point2.get_y() - point1.get_y())
-                print(point12lng)
 
-                if (point12lng < x):
-                    count += 1
 
-            print(count)
-            print("after count")
-            if count % 2 == 0:
-                rca = "outside"
-            else:
-                rca = "inside"
-        if rca == "outside":
-            out_dots[] = "outside"
-        elif rca == "inside":
-            in_dots[] = "inside"
+
     """
 
     print("STARTTTTTT")
@@ -107,22 +83,26 @@ def main():
     print(len(in_dots), "new points")  # DELETE
 
 
-
+    """
     classified_points = {**out_dots, **bou_dots, **in_dots}
+
 
     """
     print("write output.csv")
     io.output_pointfile("output.csv", classified_points.items())
-    """
+    
+    
     print("plot polygon and points")
     plotter = Plotter()
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
-
+    """
+    """
     #plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
     plotter.add_all_point(classified_points.items())
 
     #Can be deleted after tests
-    """
+    
+    
     for key, value in classified_points.items():
         x = float(key.get_x())
         y = float(key.get_y())
@@ -155,7 +135,7 @@ def main():
         y = float(key.get_y())
         kind = value
         plotter.add_point(x, y, kind)
-
+    
     
 
     #Ray test
@@ -166,9 +146,9 @@ def main():
         xmin = float(key.get_x())
         xmax = 1
         plotter.add_ray(y, xmin, xmax)
-    """
+    
     plotter.show()
-
+    """
 
 if __name__ == "__main__":
     main()
