@@ -4,7 +4,7 @@ from Geometry import Point, Line, Polygon
 class IO_file:
 
     def input_polyfile(self, filename):
-
+        filename = str(input("Please insert polygon csv filename(i.e., file.csv): "))
         with open(filename, "r") as file:
             next(file)  # skip the first line in csv
             polygon_points = []  # to store point objects
@@ -22,15 +22,12 @@ class IO_file:
                 polygon_lines.append(Line(prev, i))
                 prev = i
 
-        for i in polygon_lines:
-            a, b = i.get_points()
-            #print(a.get_x(), a.get_y(), b.get_x(), b.get_y())
-
         return polygon_points, x_polygon, y_polygon, polygon_lines
 
 
-    def input_pointfile(self, filename):
+    def input_pointfile(self):
 
+        filename = str(input("Please enter your points csv filename (i.e., file.csv): "))
         with open(filename, "r") as input_file:
             next(input_file)
             input_points = []
@@ -60,9 +57,9 @@ class IO_file:
             elif kind == "outside":
                 print("Outside!")
 
-    #test to assign filename from user
+
     def output_pointfile(self, res):
-        filename = str(input("Please insert preferred filename: ")+".csv")
+        filename = str(input("Please insert preferred export filename(i.e., file.csv): "))
         with open(filename, "w") as f:
             f.writelines("x, y, classification" + "\n")
             for key, value in res:
@@ -71,17 +68,7 @@ class IO_file:
                 kind = value
                 f.writelines(str(x) + "," + str(y) + "," + str(kind) + "\n")
 
-    """
-    def output_pointfile(self, filename, res):
 
-        with open(filename, "w") as f:
-            f.writelines("x, y, classification" + "\n")
-            for key, value in res:
-                x = key.get_x()
-                y = key.get_y()
-                kind = value
-                f.writelines(str(x) + "," + str(y) + "," + str(kind) + "\n")
-    """
 
 
 
