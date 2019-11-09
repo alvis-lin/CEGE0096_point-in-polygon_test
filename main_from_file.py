@@ -31,8 +31,8 @@ def main():
     print("plot polygon and points")
     plotter = Plotter()
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
-    # plt.plot([x_min, x_min, x_max, x_max, x_min], [y_min, y_max, y_max, y_min, y_min])  # plot MBR
     plotter.add_all_point(classified_points.items()) # plot results
+    plotter.add_line(x_polygon, y_polygon)
 
     # Can be deleted after tests
     """

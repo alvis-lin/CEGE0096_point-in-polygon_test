@@ -22,6 +22,26 @@ class Categoriser():
 
         return out_dots, idk_dots
 
+    def mbr_check_user(self, x, y, x_polygon, y_polygon):
+
+        x_max = max(x_polygon)
+        x_min = min(x_polygon)
+        y_max = max(y_polygon)
+        y_min = min(y_polygon)
+
+        out_dots = {}  # Outside points that are categorised
+        idk_dots = {}  # Points left need to be categorised
+
+
+        if x > x_max or x < x_min:
+            out_dots[i] = "outside"
+        elif y > y_max or y < y_min:
+            out_dots[i] = "outside"
+        else:
+            idk_dots[i] = "idk"
+
+        return out_dots, idk_dots
+
     def boundary_check(self, idk, polyline):
 
         bou_dots = {}

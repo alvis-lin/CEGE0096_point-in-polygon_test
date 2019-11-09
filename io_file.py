@@ -33,13 +33,33 @@ class IO_file:
 
         with open(filename, "r") as input_file:
             next(input_file)
-
             input_points = []
             for line in input_file:
                 data = line.strip().split(",")
                 input_points.append(Point(float(data[0]), float(data[1]), float(data[2])))
 
         return input_points
+
+
+    def input_pointfile_user(self, x, y):
+
+        input_points = []
+        input_points.append(Point("user", x, y))
+
+        return input_points
+
+
+    def output_user(self, res):
+
+        for key, value in res:
+            kind = str(value)
+            if kind == "inside":
+                print("Inside!")
+            elif kind == "boundary":
+                print("Boundary!")
+            elif kind == "outside":
+                print("Outside!")
+
 
     def output_pointfile(self, filename, res):
 
