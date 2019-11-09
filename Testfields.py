@@ -27,7 +27,7 @@ def main():
     classified_points = {**out_dots, **bou_dots, **in_dots}
 
     print("write output.csv")
-    io.output_pointfile("output.csv", classified_points.items())
+    io.output_pointfile(classified_points.items())
 
     print("plot polygon and points")
     plotter = Plotter()

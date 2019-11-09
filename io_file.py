@@ -60,7 +60,18 @@ class IO_file:
             elif kind == "outside":
                 print("Outside!")
 
+    #test to assign filename from user
+    def output_pointfile(self, res):
+        filename = str(input("Please insert preferred filename: ")+".csv")
+        with open(filename, "w") as f:
+            f.writelines("x, y, classification" + "\n")
+            for key, value in res:
+                x = key.get_x()
+                y = key.get_y()
+                kind = value
+                f.writelines(str(x) + "," + str(y) + "," + str(kind) + "\n")
 
+    """
     def output_pointfile(self, filename, res):
 
         with open(filename, "w") as f:
@@ -70,6 +81,7 @@ class IO_file:
                 y = key.get_y()
                 kind = value
                 f.writelines(str(x) + "," + str(y) + "," + str(kind) + "\n")
+    """
 
 
 
