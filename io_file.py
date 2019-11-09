@@ -24,7 +24,7 @@ class IO_file:
 
         for i in polygon_lines:
             a, b = i.get_points()
-            print(a.get_x(), a.get_y(), b.get_x(), b.get_y())
+            #print(a.get_x(), a.get_y(), b.get_x(), b.get_y())
 
         return polygon_points, x_polygon, y_polygon, polygon_lines
 
@@ -37,7 +37,7 @@ class IO_file:
             input_points = []
             for line in input_file:
                 data = line.strip().split(",")
-                input_points.append(Point(data[0], data[1], data[2]))
+                input_points.append(Point(float(data[0]), float(data[1]), float(data[2])))
 
         return input_points
 

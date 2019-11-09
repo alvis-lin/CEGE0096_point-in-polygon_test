@@ -40,7 +40,7 @@ class Categoriser():
                     else:
                         res = "not online"
 
-                print(res)
+                #print(res)
 
                 if res == "online":
                     bou_dots[i] = "boundary"

@@ -22,21 +22,51 @@ def main():
     bou_dots = cate.boundary_check(idk_dots,polygon_lines)
 
     idk_dots_2 = {k:v for k,v in idk_dots.items() if k not in bou_dots}
+    print(idk_dots_2)
+
 
     print(len(out_dots), "outdots")  # DELETE
     print(len(bou_dots), "boundots")  # DELETE
     print(len(idk_dots), "idkdots")  # DELETE
     print(len(idk_dots_2), "idk_2 points")  # DELETE
 
-    """
+
     in_dots = {}
-    count = 0
-    point1x = x_polygon[0]
-    point1y = y_polygon[0]
-    for key, value in idk_dots_2.items():
-        x = float(key.get_x())
-        y = float(key.get_y())
-        #print(x,y)
+
+    point1 = polygon_points[0]
+
+    for i in idk_dots_2:
+        x, y = i.get_x(), i.get_y()
+        print(x, y)
+        count = 0
+        for a in range(1, len(polygon_points)):
+            point2 = polygon_points[a]
+            print(point1.get_x(), point1.get_y(), point2.get_x(), point2.get_y())
+            if (point1.get_y() < y and point2.get_y() >= y) or (point1.get_y() >= y and point2.get_y() < y):
+            # 求线段与射线交点 再和lat比较
+                point12lng = point2.get_x() - (point2.get_y() - y) * (point2.get_x() - point1.get_x()) / (point2.get_y() - point1.get_y())
+                print(point12lng)
+                """
+                if point12lng == x:
+                    print("点在多边形边上")
+                    return False
+                """
+                if point12lng < x:
+                    count += 1
+            point1 = point2
+        #print(count)
+        #print("after count")
+        if count % 2 == 0:
+            out_dots[i] = "outside"
+        else:
+            in_dots[i] = "inside"
+
+
+
+    """
+        for key, value in idk_dots_2.items():
+        x, y = key.get_x(), key.get_y()
+        rca = ""
         for i in range(1, len(polygon_points)):
             point2 = polygon_points[i]
             if (point1.get_y() < y and point2.get_y() >= y) or (point1.get_y() >= y and point2.get_y() < y):
@@ -44,32 +74,42 @@ def main():
                 point12lng = point2.get_x() - (point2.get_y() - y) * (point2.get_x() - point1.get_x()) / (point2.get_y() - point1.get_y())
                 print(point12lng)
 
-                if (point12lng == x):
-                    print("点在多边形边上")
-                    return False
                 if (point12lng < x):
                     count += 1
-            point1x = point2x
-            point1y = point2y
-        print(count)
-        if count % 2 == 0:
-            out_dots[i] = "outside"
-        else:
-            in_dots[i] = "inside"
 
-
+            print(count)
+            print("after count")
+            if count % 2 == 0:
+                rca = "outside"
+            else:
+                rca = "inside"
+        if rca == "outside":
+            out_dots[] = "outside"
+        elif rca == "inside":
+            in_dots[] = "inside"
     """
+
+    print("STARTTTTTT")
+    for i in out_dots:
+        print(i, "out")
+    for i in bou_dots:
+        print(i, "bou")
+    for i in in_dots:
+        print(i, "in")
+
+
+    print("end?????")
 
     print(len(out_dots), "outdots") #DELETE
     print(len(bou_dots), "boundots") #DELETE
     print(len(idk_dots), "idkdots") #DELETE
     print(len(idk_dots_2), "idk_2 points") #DELETE
-    #print(len(in_dots), "new points")  # DELETE
+    print(len(in_dots), "new points")  # DELETE
 
 
-    classified_points = {**out_dots, **bou_dots, **idk_dots_2}
-    #classified_points = {**out_dots, **bou_dots, **in_dots}
-    print(classified_points) #DELETE
+
+    classified_points = {**out_dots, **bou_dots, **in_dots}
+
     """
     print("write output.csv")
     io.output_pointfile("output.csv", classified_points.items())
@@ -89,7 +129,15 @@ def main():
         kind = value
         plotter.add_point(x,y,kind)
     
-    for key, value in out_dots.items():
+   
+    for i in input_points:
+        x = i.get_x()
+        y = i.get_y()
+        kind = "unclassified"
+        plotter.add_point(x, y, kind)
+    
+
+    for key, value in idk_dots_2.items():
         x = float(key.get_x())
         y = float(key.get_y())
         kind = value
@@ -101,9 +149,14 @@ def main():
         y = float(key.get_y())
         kind = value
         plotter.add_point(x, y, kind)
-    """
 
-    """
+    for key, value in out_dots.items():
+        x = float(key.get_x())
+        y = float(key.get_y())
+        kind = value
+        plotter.add_point(x, y, kind)
+
+    
 
     #Ray test
     
@@ -115,7 +168,6 @@ def main():
         plotter.add_ray(y, xmin, xmax)
     """
     plotter.show()
-    
 
 
 if __name__ == "__main__":

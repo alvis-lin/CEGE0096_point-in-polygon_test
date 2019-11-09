@@ -19,8 +19,8 @@ class Plotter:
 
     def add_all_point(self,res):
         for key, value in res:
-            x = float(key.get_x())
-            y = float(key.get_y())
+            x = key.get_x()
+            y = key.get_y()
             kind = value
             if kind == "outside":
                 plt.plot(x, y, "ro", label='Outside')
