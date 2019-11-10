@@ -7,15 +7,15 @@ class IoFile:
         filename = str(input("Please insert polygon csv filename(i.e., file.csv): "))
         with open(filename, "r") as file:
             next(file)
-            polygon_points = []
+            polygon_points = []  # store point objects of the polygon points
             x_polygon = []  # store x coordinates of polygon
             y_polygon = []  # store y coordinates of polygon
             for line in file:
                 data = line.strip().split(",")
                 # use data to make point objects
                 polygon_points.append(Point(float(data[0]), float(data[1]), float(data[2])))
-                x_polygon.append(float(data[1]))  # the list of x coordinates to plot polygon
-                y_polygon.append(float(data[2]))  # the list of y coordinates to plot polygon
+                x_polygon.append(float(data[1]))
+                y_polygon.append(float(data[2]))
             polygon_lines = []
             prev = polygon_points[0]
             for i in polygon_points[1:]:
@@ -28,7 +28,7 @@ class IoFile:
         filename = str(input("Please enter your points csv filename (i.e., file.csv): "))
         with open(filename, "r") as input_file:
             next(input_file)
-            input_points = []
+            input_points = [] # store point objects of the input points
             for line in input_file:
                 data = line.strip().split(",")
                 input_points.append(Point(float(data[0]), float(data[1]), float(data[2])))
