@@ -24,7 +24,7 @@ def main():
     idk_dots_2 = {k: v for k, v in idk_dots.items() if k not in bou_dots}  # get the rest points to classify after POL
     in_dots, out_dots = cate.rca_check(idk_dots_2, polygon_points, out_dots)
     classified_points = {**out_dots, **bou_dots, **in_dots}  # merge the result into one dictionary
-    io.output_user(classified_points.items())  # export the file after user enters the filename
+    io.output_pointfile_user(classified_points.items())  # export the file after user enters the filename
 
     print("plot polygon and point")
     plotter = Plotter()
