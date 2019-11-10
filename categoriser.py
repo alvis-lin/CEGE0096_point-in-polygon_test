@@ -1,4 +1,4 @@
-class Categoriser():
+class Categoriser:
 
     def mbr_check(self, inputpoints, x_polygon, y_polygon):
 
@@ -20,7 +20,6 @@ class Categoriser():
                 idk_dots[i] = "idk"
 
         return out_dots, idk_dots
-
 
     def pol_check(self, idk, polyline):
 
@@ -45,7 +44,6 @@ class Categoriser():
 
         return bou_dots
 
-
     def rca_check(self, idk2, polypoints, out_dot):
 
         in_dots = {}  # inside points will be stored here
@@ -69,6 +67,4 @@ class Categoriser():
                 out_dot[i] = "outside"
             else:
                 in_dots[i] = "inside"
-
         return in_dots, out_dot
-

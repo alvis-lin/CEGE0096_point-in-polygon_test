@@ -16,15 +16,12 @@ class IO_file:
                 polygon_points.append(Point(float(data[0]), float(data[1]), float(data[2])))
                 x_polygon.append(float(data[1]))  # the list of x coordinates to plot polygon
                 y_polygon.append(float(data[2]))  # the list of y coordinates to plot polygon
-
             polygon_lines = []
             prev = polygon_points[0]
             for i in polygon_points[1:]:
                 polygon_lines.append(Line(prev, i))
                 prev = i
-
         return polygon_points, x_polygon, y_polygon, polygon_lines
-
 
     def input_pointfile(self):
 
@@ -35,17 +32,13 @@ class IO_file:
             for line in input_file:
                 data = line.strip().split(",")
                 input_points.append(Point(float(data[0]), float(data[1]), float(data[2])))
-
         return input_points
-
 
     def input_pointfile_user(self, x, y):
 
         input_points = []
         input_points.append(Point("user", x, y))
-
         return input_points
-
 
     def output_user(self, res):
 
@@ -58,7 +51,6 @@ class IO_file:
             elif kind == "outside":
                 print("Outside!")
 
-
     def output_pointfile(self, res):
         filename = str(input("Please insert preferred export filename(i.e., file.csv): "))
         with open(filename, "w") as f:
@@ -68,12 +60,3 @@ class IO_file:
                 y = key.get_y()
                 kind = value
                 f.writelines(str(x) + "," + str(y) + "," + str(kind) + "\n")
-
-
-
-
-
-
-
-
-

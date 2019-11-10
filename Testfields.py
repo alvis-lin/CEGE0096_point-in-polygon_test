@@ -19,7 +19,7 @@ def main():
     cate = Categoriser()
     out_dots, idk_dots = cate.mbr_check(input_points, x_polygon, y_polygon)
     bou_dots = cate.pol_check(idk_dots, polygon_lines)
-    idk_dots_2 = {k: v for k, v in idk_dots.items() if k not in bou_dots} # get rest points to classify after POL
+    idk_dots_2 = {k: v for k, v in idk_dots.items() if k not in bou_dots}  # get rest points to classify after POL
     in_dots, out_dots = cate.rca_check(idk_dots_2, polygon_points, out_dots)
     classified_points = {**out_dots, **bou_dots, **in_dots}  # merge the result into one dictionary
 
@@ -36,4 +36,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
