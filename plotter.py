@@ -55,6 +55,9 @@ class Plotter:
     def show(self):
         handles, labels = plt.gca().get_legend_handles_labels()
         by_label = OrderedDict(zip(labels, handles))
+        plt.title('Point in Polygon Test')
+        plt.xlabel('X-coordinate')
+        plt.ylabel('Y-coordinate')
         plt.legend(by_label.values(), by_label.keys()) # loc needs to be adjusted
         plt.show()
 
