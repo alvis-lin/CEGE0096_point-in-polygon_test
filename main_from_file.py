@@ -14,7 +14,7 @@ def main():
     polygon_points, x_polygon, y_polygon, polygon_lines = io.input_polyfile("polygon.csv")
 
     print("read input.csv")
-    input_points = io.input_pointfile()
+    input_points = io.input_pointfile() # convert input point to point object
 
     print("categorize points")
     cate = Categoriser()
