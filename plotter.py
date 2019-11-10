@@ -15,12 +15,6 @@ class Plotter:
     def add_line(self, x, y):
         plt.plot(x, y, 'orange')
 
-    def add_ray(self, res, x_max):
-        for key, value in res:
-            x = key.get_x()
-            y = key.get_y()
-            plt.axhline(y, x, x_max)
-
     def add_all_point(self, res):
         for key, value in res:
             x = key.get_x()
