@@ -10,7 +10,7 @@ class Plotter:
         plt.figure()
 
     def add_polygon(self, xs, ys):
-        plt.fill(xs, ys, 'lightblue', label='Polygon')
+        plt.fill(xs, ys, 'lightgrey', label='Polygon')
 
     def add_line(self, x, y):
         plt.plot(x, y, 'orange')
@@ -46,4 +46,5 @@ class Plotter:
         plt.xlabel('X-coordinate')
         plt.ylabel('Y-coordinate')
         plt.legend(by_label.values(), by_label.keys())  # loc needs to be adjusted
+        plt.savefig(str(input("Please enter preferred image name (i.e., file.png): ")))
         plt.show()

@@ -1,5 +1,4 @@
 import matplotlib
-import matplotlib.pyplot as plt
 from plotter import Plotter
 from io_file import IoFile
 from categoriser import Categoriser
@@ -31,7 +30,6 @@ def main():
     plotter = Plotter()
     plotter.add_polygon(x_polygon, y_polygon)
     plotter.add_all_point(classified_points.items())
-    plt.savefig(str(input("Please enter preferred image name (i.e., file.png): ")))
     plotter.show()
 
 
