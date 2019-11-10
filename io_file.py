@@ -16,7 +16,7 @@ class IoFile:
                 polygon_points.append(Point(float(data[0]), float(data[1]), float(data[2])))
                 x_polygon.append(float(data[1]))
                 y_polygon.append(float(data[2]))
-            polygon_lines = []
+            polygon_lines = []  # store the line objects of the polygon points
             prev = polygon_points[0]
             for i in polygon_points[1:]:
                 polygon_lines.append(Line(prev, i))
