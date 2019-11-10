@@ -1,7 +1,7 @@
 from Geometry import Point, Line
 
 
-class IO_file:
+class IoFile:
 
     def input_polyfile(self):
         filename = str(input("Please insert polygon csv filename(i.e., file.csv): "))

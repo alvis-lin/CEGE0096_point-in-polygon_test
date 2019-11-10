@@ -1,7 +1,7 @@
 import matplotlib
 import matplotlib.pyplot as plt
 from plotter import Plotter
-from io_file import IO_file
+from io_file import IoFile
 from categoriser import Categoriser
 
 matplotlib.use('TkAgg')
@@ -10,7 +10,7 @@ matplotlib.use('TkAgg')
 def main():
 
     print("read polygon.csv")
-    io = IO_file()
+    io = IoFile()
     polygon_points, x_polygon, y_polygon, polygon_lines = io.input_polyfile()
 
     print("read input.csv")
