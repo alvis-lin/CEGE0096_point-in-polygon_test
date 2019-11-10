@@ -1,6 +1,10 @@
+import matplotlib
 from plotter import Plotter
 from io_file import IO_file
 from categoriser import Categoriser
+
+matplotlib.use('TkAgg')
+
 
 def main():
 
@@ -21,13 +25,13 @@ def main():
     in_dots, out_dots = cate.rca_check(idk_dots_2, polygon_points, out_dots)  # RCA
     classified_points = {**out_dots, **bou_dots, **in_dots} # merge the result
     io.output_user(classified_points.items())
-    """
+
     print("plot polygon and point")
     plotter = Plotter()
     plotter.add_polygon(x_polygon, y_polygon)  # plot Polygon
     plotter.add_all_point(classified_points.items())  # plot categorise result
     plotter.show()
-    """
+
 
 if __name__ == "__main__":
     main()

@@ -8,6 +8,7 @@ matplotlib.use('TkAgg')
 
 
 def main():
+
     print("read polygon.csv")
     io = IO_file()
     polygon_points, x_polygon, y_polygon, polygon_lines = io.input_polyfile("polygon.csv")
